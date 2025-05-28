@@ -8,60 +8,60 @@ package Controlador;
  *
  * @author chaco
  */
-import Vista.vistaLogin;
+import DAO.usuarioDao;
 import Modelo.Usuario;
-import conection.CreateConection;
+import Vista.vistaLogin;
+import Vista.MenuAdministrador;
+import Vista.MenuCajero;
+import Vista.MenuMesero;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.*;
 
 public class controladorLogin {
-  
-    private vistaLogin vista;
+     private vistaLogin vista;
+    private usuarioDao dao;
 
     public controladorLogin(vistaLogin vista) {
         this.vista = vista;
-        initController();
+        this.dao = new usuarioDao();
+
+        this.vista.btnIngresar.addActionListener(e -> validarLogin());
     }
 
-    private void initController() {
-        vista.btnLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                autenticarUsuario();
-            }
-        });
-    }
+    private void validarLogin() {
+        String usuario = vista.txtUsuario.getText();
+        String clave = vista.txtContrasena.getText();
 
-    private void autenticarUsuario() {
-        String user = vista.txtUsuario.getText();
-        String pass = new String(vista.txtContrasena.getPassword());
+        if (usuario.isEmpty() || clave.isEmpty()) {
+            vista.lblMensaje.setText("Por favor, llena todos los campos.");
+            return;
+        }
 
-        String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasena = ? AND estado = true";
+        Usuario user = dao.login(usuario, clave);
 
-        try {
-            CreateConection conn = new CreateConection();
-            Connection conexion = conn.getConnection();
-            PreparedStatement ps = conexion.prepareStatement(sql);
-            ps.setString(1, user);
-            ps.setString(2, pass);
-            ResultSet rs = ps.executeQuery();
+        if (user != null) {
+            vista.lblMensaje.setText("Bienvenido, rol: " + user.getPuesto());
 
-            if (rs.next()) {
-                String rol = rs.getString("rol");
-                JOptionPane.showMessageDialog(vista, "¡Bienvenido, " + rol + "!");
-                // Aquí puedes abrir el menú principal según rol
-                vista.dispose();
-            } else {
-                JOptionPane.showMessageDialog(vista, "Credenciales incorrectas o usuario inactivo.");
+            switch (user.getPuesto().toLowerCase()) {
+                case "administrador":
+                    new MenuAdministrador().setVisible(true);
+                    break;
+                case "cajero":
+                    new MenuCajero().setVisible(true);
+                    break;
+                case "mesero":
+                    new MenuMesero().setVisible(true);
+                    break;
+                default:
+                    vista.lblMensaje.setText("Rol desconocido.");
+                    return;
             }
 
-            rs.close();
-            ps.close();
-            conexion.close();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(vista, "Error al conectar con la base de datos: " + e.getMessage());
+            vista.dispose(); 
+
+        } else {
+            vista.lblMensaje.setText("Usuario o contraseña incorrectos.");
         }
     }
-    
+  
+   
 }
