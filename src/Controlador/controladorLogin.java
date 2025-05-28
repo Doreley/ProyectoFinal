@@ -49,7 +49,7 @@ public class controladorLogin {
 
             if (rs.next()) {
                 String rol = rs.getString("rol");
-                JOptionPane.showMessageDialog(vista, "¡Bienvenido, " + puesto + "!");
+                JOptionPane.showMessageDialog(vista, "¡Bienvenido, " + rol + "!");
                 // Aquí puedes abrir el menú principal según rol
                 vista.dispose();
             } else {
