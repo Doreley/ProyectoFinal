@@ -9,14 +9,14 @@ package DAO;
  * @author chaco
  */
 import conection.CreateConection;
-import modelo.Empleado;
+import Modelo.modeloEmpleado;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class empleadoDAO {
     
-    public boolean guardarEmpleado(Empleado e) {
+    public boolean guardarEmpleado(modeloEmpleado e) {
         String sql = "INSERT INTO empleados(nombre, apellido, cargo, telefono, direccion, estado, fecha_ingreso, salario, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = new CreateConection().getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -39,8 +39,8 @@ public class empleadoDAO {
         }
     }
 
-    public List<Empleado> listarEmpleados() {
-        List<Empleado> lista = new ArrayList<>();
+    public List<modeloEmpleado> listarEmpleados() {
+        List<modeloEmpleado> lista = new ArrayList<>();
         String sql = "SELECT * FROM empleados";
 
         try (Connection conn = new CreateConection().getConnection();
@@ -48,7 +48,7 @@ public class empleadoDAO {
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                Empleado e = new Empleado();
+                modeloEmpleado e = new modeloEmpleado();
                 e.setId(rs.getInt("id"));
                 e.setNombre(rs.getString("nombre"));
                 e.setApellido(rs.getString("apellido"));

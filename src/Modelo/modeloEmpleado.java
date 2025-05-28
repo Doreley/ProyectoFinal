@@ -21,7 +21,32 @@ public class modeloEmpleado {
     private double salario;
     private String email;
 
-    public Empleado() {}
+    public modeloEmpleado() {
+        this.id= 0;
+        this.nombre= "";
+        this.apellido= "";
+        this.cargo= "";
+        this.telefono= "";
+        this.direccion= "";
+        this.estado= true;
+        this.fechaIngreso= "";
+        this.salario= 0;
+        this.email= "";
+    
+    }
+
+    public modeloEmpleado(int id, String nombre, String apellido, String cargo, String telefono, String direccion, boolean estado, String fechaIngreso, double salario, String email) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.cargo = cargo;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.estado = estado;
+        this.fechaIngreso = fechaIngreso;
+        this.salario = salario;
+        this.email = email;
+    }
 
     // Getters y setters
     public int getId() { return id; }
