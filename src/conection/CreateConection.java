@@ -35,7 +35,7 @@ public class CreateConection {
       public CreateConection(){
           InputStream in = null;
           //Properties config = new Properties();
-          String path = "C:\\Users\\chaco\\OneDrive\\Documentos\\NetBeansProjects\\FacturacionRestaurante\\src\\conection\\dbproduccion.properties";
+          String path = "C:\\Users\\chaco\\OneDrive\\Documentos\\NetBeansProjects\\GestionParaRestaurante\\src\\conection\\dbconfig.properties";
           
           try{
               in = Files.newInputStream(Paths.get(path));
