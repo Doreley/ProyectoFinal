@@ -26,17 +26,66 @@ public class MenuCajero extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblBienvenida = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuFacturacion = new javax.swing.JMenu();
+        itemFacturacion = new javax.swing.JMenuItem();
+        menuClientes = new javax.swing.JMenu();
+        itemClientes = new javax.swing.JMenuItem();
+        menuReportes = new javax.swing.JMenu();
+        itemReportes = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblBienvenida.setText("Bienvenido...");
+
+        btnCerrarSesion.setText("Cerrar Sesion");
+
+        menuFacturacion.setText("Facturacion");
+
+        itemFacturacion.setText("jMenuItem2");
+        menuFacturacion.add(itemFacturacion);
+
+        jMenuBar1.add(menuFacturacion);
+
+        menuClientes.setText("Clientes");
+
+        itemClientes.setText("Gestionar Clientes");
+        menuClientes.add(itemClientes);
+
+        jMenuBar1.add(menuClientes);
+
+        menuReportes.setText("Reportes");
+
+        itemReportes.setText("Reportes del dia");
+        menuReportes.add(itemReportes);
+
+        jMenuBar1.add(menuReportes);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(164, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(lblBienvenida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(29, 29, 29))
         );
 
         pack();
@@ -78,5 +127,14 @@ public class MenuCajero extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnCerrarSesion;
+    public javax.swing.JMenuItem itemClientes;
+    public javax.swing.JMenuItem itemFacturacion;
+    public javax.swing.JMenuItem itemReportes;
+    private javax.swing.JMenuBar jMenuBar1;
+    public javax.swing.JLabel lblBienvenida;
+    public javax.swing.JMenu menuClientes;
+    public javax.swing.JMenu menuFacturacion;
+    public javax.swing.JMenu menuReportes;
     // End of variables declaration//GEN-END:variables
 }
