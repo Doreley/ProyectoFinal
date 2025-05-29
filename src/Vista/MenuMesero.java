@@ -4,6 +4,9 @@
  */
 package Vista;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author chaco
@@ -15,6 +18,45 @@ public class MenuMesero extends javax.swing.JFrame {
      */
     public MenuMesero() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        
+      ImageIcon icono0 = new ImageIcon(getClass().getResource("/Img/b.png"));
+      ImageIcon iconoListo = new ImageIcon(getClass().getResource("/Img/pedido.png"));
+      ImageIcon iconover = new ImageIcon(getClass().getResource("/Img/ver.png"));
+      ImageIcon iconoliberar = new ImageIcon(getClass().getResource("/Img/liberar.png"));
+      ImageIcon iconoactualizar = new ImageIcon(getClass().getResource("/Img/actualizar.png"));
+      ImageIcon iconobeb = new ImageIcon(getClass().getResource("/Img/beb.png"));
+      
+      Image imagenEscalas = icono0.getImage().getScaledInstance(
+      lblBienvenida.getWidth(), lblBienvenida.getHeight(), Image.SCALE_SMOOTH);
+
+      lblBienvenida.setIcon(new ImageIcon(imagenEscalas));
+      
+      Image imagenEscala = iconoListo.getImage().getScaledInstance(
+      lblListo.getWidth(), lblListo.getHeight(), Image.SCALE_SMOOTH);
+
+      lblListo.setIcon(new ImageIcon(imagenEscala));
+      
+      Image imagenEscala1 = iconover.getImage().getScaledInstance(
+      lblver.getWidth(), lblver.getHeight(), Image.SCALE_SMOOTH);
+
+      lblver.setIcon(new ImageIcon(imagenEscala1));
+      
+      Image imagenEscala2 = iconoliberar.getImage().getScaledInstance(
+      lblLiberar.getWidth(), lblLiberar.getHeight(), Image.SCALE_SMOOTH);
+
+      lblLiberar.setIcon(new ImageIcon(imagenEscala2));
+      
+        Image imagenEscala3 = iconoactualizar.getImage().getScaledInstance(
+      lblActualizar.getWidth(), lblActualizar.getHeight(), Image.SCALE_SMOOTH);
+
+      lblActualizar.setIcon(new ImageIcon(imagenEscala3));
+      
+      Image imagenEscala4 = iconobeb.getImage().getScaledInstance(
+      lblBeb.getWidth(), lblBeb.getHeight(), Image.SCALE_SMOOTH);
+
+      lblBeb.setIcon(new ImageIcon(imagenEscala4));
+      
     }
 
     /**
@@ -26,38 +68,69 @@ public class MenuMesero extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblBienvenida = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         lblMesa = new javax.swing.JLabel();
+        lblBienvenida = new javax.swing.JLabel();
         cmbMesa = new javax.swing.JComboBox<>();
-        lblEstadoMesa = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
+        lblEstadoMesa = new javax.swing.JLabel();
         btnVerPedido = new javax.swing.JButton();
         btnAgregarPedido = new javax.swing.JButton();
         btnLiberarMesa = new javax.swing.JButton();
+        lblPedido = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMesas = new javax.swing.JTable();
         btnCerrarSesion = new javax.swing.JButton();
+        lblListo = new javax.swing.JLabel();
+        lblver = new javax.swing.JLabel();
+        lblLiberar = new javax.swing.JLabel();
+        lblBeb = new javax.swing.JLabel();
+        lblActualizar = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
-        lblBienvenida.setText("Bienvenido...");
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblMesa.setBackground(new java.awt.Color(255, 255, 255));
+        lblMesa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblMesa.setText("Mesa Seleccionada ");
+        jPanel1.add(lblMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 170, -1));
+
+        lblBienvenida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/b.png"))); // NOI18N
+        lblBienvenida.setText("Bienvenido...");
+        jPanel1.add(lblBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 320, 60));
 
         cmbMesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cmbMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, -1, -1));
 
-        lblEstadoMesa.setText("Libre");
-
+        lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblStatus.setText("Estado");
+        jPanel1.add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 180, 60, -1));
+
+        lblEstadoMesa.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblEstadoMesa.setText("Libre");
+        jPanel1.add(lblEstadoMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 60, -1));
 
         btnVerPedido.setText("Ver Pedido Actual");
+        jPanel1.add(btnVerPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         btnAgregarPedido.setText("Agregar Pedido ");
+        jPanel1.add(btnAgregarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 117, -1));
 
         btnLiberarMesa.setText("Liberar Mesa");
+        jPanel1.add(btnLiberarMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
+
+        lblPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/modificar.png"))); // NOI18N
+        lblPedido.setText("jLabel3");
+        jPanel1.add(lblPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 238, 37, 49));
 
         btnActualizar.setText("Actualizar");
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, -1));
 
         tblMesas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,83 +145,61 @@ public class MenuMesero extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblMesas);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 470, 159));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(204, 204, 204));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesion");
+        jPanel1.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 570, -1, -1));
+
+        lblListo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pedido.png"))); // NOI18N
+        lblListo.setText("jLabel1");
+        jPanel1.add(lblListo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 40, 40));
+
+        lblver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ver.png"))); // NOI18N
+        jPanel1.add(lblver, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 40, 40));
+
+        lblLiberar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/liberar.png"))); // NOI18N
+        lblLiberar.setText("jLabel1");
+        jPanel1.add(lblLiberar, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 40, 40));
+
+        lblBeb.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/beb.png"))); // NOI18N
+        lblBeb.setText("jLabel1");
+        jPanel1.add(lblBeb, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 90, 80));
+
+        lblActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
+        lblActualizar.setText("jLabel1");
+        jPanel1.add(lblActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 37, 38));
+
+        btnSalir.setBackground(new java.awt.Color(255, 0, 51));
+        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("X");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
-                        .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(lblMesa)
-                        .addGap(60, 60, 60)
-                        .addComponent(cmbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnVerPedido)
-                    .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblEstadoMesa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregarPedido)
-                        .addGap(97, 97, 97))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnActualizar)
-                            .addComponent(btnLiberarMesa)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion)
-                .addGap(37, 37, 37))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(lblBienvenida)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMesa)
-                    .addComponent(cmbMesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEstadoMesa)
-                    .addComponent(lblStatus))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVerPedido)
-                    .addComponent(btnAgregarPedido))
-                .addGap(18, 18, 18)
-                .addComponent(btnLiberarMesa)
-                .addGap(18, 18, 18)
-                .addComponent(btnActualizar)
-                .addGap(55, 55, 55)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion)
-                .addGap(31, 31, 31))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,15 +239,23 @@ public class MenuMesero extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnActualizar;
     public javax.swing.JButton btnAgregarPedido;
-    public javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnCerrarSesion;
     public javax.swing.JButton btnLiberarMesa;
+    private javax.swing.JButton btnSalir;
     public javax.swing.JButton btnVerPedido;
     private javax.swing.JComboBox<String> cmbMesa;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblActualizar;
+    private javax.swing.JLabel lblBeb;
     public javax.swing.JLabel lblBienvenida;
     public javax.swing.JLabel lblEstadoMesa;
+    private javax.swing.JLabel lblLiberar;
+    private javax.swing.JLabel lblListo;
     public javax.swing.JLabel lblMesa;
+    private javax.swing.JLabel lblPedido;
     public javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblver;
     private javax.swing.JTable tblMesas;
     // End of variables declaration//GEN-END:variables
 }
