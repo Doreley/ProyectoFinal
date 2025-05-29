@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import Modelo.ModeloMesa;
+import java.sql.SQLException;
         
 public class mesaDAO {
       private Connection conn;
@@ -87,5 +88,25 @@ public class mesaDAO {
             return false;
         }
     }
+    
+    public void ocuparMesa(int idMesa) {
+    String sql = "UPDATE mesas SET estado = 'ocupada' WHERE id = ?";
+
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idMesa);
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+    public void liberarMesa(int idMesa) {
+    String sql = "UPDATE mesas SET estado = 'libre' WHERE id = ?";
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idMesa);
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
     
 }

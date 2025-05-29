@@ -14,6 +14,7 @@ public class ModeloDetallePedido {
     private int id;
     private int idPedido;
     private int idProducto;
+    private String NombreProducto;
     private int cantidad;
     private double precioUnitario;
     private double subtotal;
@@ -22,15 +23,17 @@ public class ModeloDetallePedido {
     this.id= 0;
     this.idPedido= 0;
     this.idProducto= 0;
+    this.NombreProducto= "";
     this.cantidad= 0;
     this.precioUnitario= 0;
     this.subtotal= 0;
     }
 
-    public ModeloDetallePedido(int id, int idPedido, int idProducto, int cantidad, double precioUnitario, double subtotal) {
+    public ModeloDetallePedido(int id, int idPedido, int idProducto, int cantidad, double precioUnitario, double subtotal,String Nombreproducto) {
     this.id = id;
     this.idPedido = idPedido;
     this.idProducto = idProducto;
+    this.NombreProducto = NombreProducto;
     this.cantidad = cantidad;
     this.precioUnitario = precioUnitario;
     this.subtotal = subtotal;
@@ -82,6 +85,14 @@ public class ModeloDetallePedido {
 
     public void setSubtotal(double subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public String getNombreProducto() {
+        return NombreProducto;
+    }
+
+    public void setNombreProducto(String NombreProducto) {
+        this.NombreProducto = NombreProducto;
     }
     
     

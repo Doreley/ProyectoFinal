@@ -12,14 +12,30 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.JOptionPane;
+import Modelo.ModeloPedido;
+import DAO.PedidoDAO;
+import DAO.DetallePedidoDAO;
+import DAO.mesaDAO;
+import conection.CreateConection;
+import java.sql.Connection;
+import Modelo.ModeloDetallePedido;
+
 
 public class VistaAgregarPedido extends javax.swing.JFrame {
+
+private int idMesa;
+private int idUsuario;
 
     /**
      * Creates new form VistaAgregarPedido
      */
-    public VistaAgregarPedido() {
+    public VistaAgregarPedido(int idMesa, int idUsuario) {
     initComponents();
+    
+    this.idMesa = idMesa;
+    this.idUsuario = idUsuario;
+
     configurarTabla();
     cargarProductos();
     setLocationRelativeTo(null);
@@ -129,15 +145,31 @@ public class VistaAgregarPedido extends javax.swing.JFrame {
         lblCantidad.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         lblCantidad.setForeground(new java.awt.Color(255, 255, 255));
         lblCantidad.setText("Cantidad");
+        btnAgregarProducto.setText("Agregar Producto");
+        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
 
         btnAgregarProducto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAgregarProducto.setText("Agregar \nProducto");
 
         btnConfirmarPedido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnConfirmarPedido.setText("Confirmar Pedido");
+        btnConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarPedidoActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar Pedido");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         cmbProducto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cmbProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -268,10 +300,116 @@ public class VistaAgregarPedido extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< Upstream, based on origin/master
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+=======
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+       try {
+    String item = cmbProducto.getSelectedItem().toString();
+    String[] partes = item.split(" - ");
+    int idProducto = Integer.parseInt(partes[0]);
+    String nombre = partes[1];
+
+    int cantidad = Integer.parseInt(txtCantidad.getText());
+
+    // Simular precio
+    double precioUnitario = switch (idProducto) {
+        case 1 -> 10.0;
+        case 2 -> 8.5;
+        case 3 -> 5.0;
+        case 4 -> 12.0;
+        case 5 -> 15.0;
+        default -> 9.0;
+    };
+
+    double subtotal = cantidad * precioUnitario;
+
+    DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
+    modelo.addRow(new Object[]{ idProducto, nombre, cantidad, precioUnitario, subtotal });
+
+    txtCantidad.setText("");
+
+} catch (Exception ex) {
+    JOptionPane.showMessageDialog(this, "Error al agregar producto: " + ex.getMessage());
+}
+    }//GEN-LAST:event_btnAgregarProductoActionPerformed
+
+    private void btnConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidoActionPerformed
+    DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
+
+    if (modelo.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "Agrega al menos un producto al pedido.");
+        return;
+    }
+
+    try {
+        
+        int idUsuario = 1; 
+        int idCliente = 1; 
+        int idMesa = 1; 
+
+        // Calcular total e impuesto
+        double total = 0;
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            total += Double.parseDouble(modelo.getValueAt(i, 4).toString()); 
+        }
+        double impuesto = total * 0.15;
+
+        // 1. Insertar en tabla pedidos
+        ModeloPedido pedido = new ModeloPedido();
+        pedido.setIdCliente(idCliente);
+        pedido.setIdUsuario(idUsuario);
+        pedido.setMesaId(idMesa);
+        pedido.setTotal(total);
+        pedido.setImpuesto(impuesto);
+        
+        CreateConection cc = new CreateConection();
+        Connection conn = cc.getConnection();
+
+        PedidoDAO pedidoDAO = new PedidoDAO(conn);
+        DetallePedidoDAO detalleDAO = new DetallePedidoDAO(conn);
+        mesaDAO mesaDAO = new mesaDAO(conn);
+
+        
+        int idPedidoGenerado = pedidoDAO.insertarPedido(pedido);
+
+        // 2. Insertar detalles
+       
+
+        for (int i = 0; i < modelo.getRowCount(); i++) {
+            ModeloDetallePedido detalle = new ModeloDetallePedido();
+            detalle.setIdPedido(idPedidoGenerado);
+            detalle.setIdProducto(Integer.parseInt(modelo.getValueAt(i, 0).toString()));
+            detalle.setCantidad(Integer.parseInt(modelo.getValueAt(i, 2).toString()));
+            detalle.setPrecioUnitario(Double.parseDouble(modelo.getValueAt(i, 3).toString()));
+            detalle.setSubtotal(Double.parseDouble(modelo.getValueAt(i, 4).toString()));
+
+            detalleDAO.insertarDetalle(detalle);
+        }
+
+        
+        
+        mesaDAO.ocuparMesa(idMesa);
+
+        JOptionPane.showMessageDialog(this, "Pedido registrado correctamente.");
+
+        modelo.setRowCount(0); // Limpiar tabla
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al guardar el pedido: " + ex.getMessage());
+        ex.printStackTrace();
+    }
+    }//GEN-LAST:event_btnConfirmarPedidoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
+modelo.setRowCount(0); 
+this.dispose(); 
+    }//GEN-LAST:event_btnCancelarActionPerformed
+>>>>>>> a686fdc nueva actualizacion
 
     /**
      * @param args the command line arguments
@@ -303,7 +441,6 @@ public class VistaAgregarPedido extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaAgregarPedido().setVisible(true);
             }
         });
     }

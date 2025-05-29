@@ -11,13 +11,25 @@ import javax.swing.ImageIcon;
  *
  * @author chaco
  */
+
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import DAO.mesaDAO;
+import conection.CreateConection;
+import Vista.VistaAgregarPedido;
+import Vista.MenuMesero;
+import javax.swing.table.DefaultTableModel;
+
 public class MenuMesero extends javax.swing.JFrame {
 
+    private int idUsuarioActual;
     /**
      * Creates new form MenuMesero
      */
     public MenuMesero() {
         initComponents();
+        cargarMesas();
+        inicializarTablaPedidos();
         this.setLocationRelativeTo(null);
         
       ImageIcon icono0 = new ImageIcon(getClass().getResource("/Img/b.png"));
@@ -58,6 +70,27 @@ public class MenuMesero extends javax.swing.JFrame {
       lblBeb.setIcon(new ImageIcon(imagenEscala4));
       
     }
+    
+    public void inicializarTablaPedidos() {
+    String[] columnas = { "ID Producto", "Nombre Producto", "Cantidad", "Precio Unitario", "Subtotal" };
+    DefaultTableModel modelo = new DefaultTableModel(null, columnas);
+    tblMesas.setModel(modelo);
+}
+    
+    private void cargarMesas() {
+    cmbMesa.removeAllItems(); 
+    cmbMesa.addItem("1");
+    cmbMesa.addItem("2");
+    cmbMesa.addItem("3");
+    cmbMesa.addItem("4");
+    cmbMesa.addItem("5");
+    cmbMesa.addItem("6");
+    cmbMesa.addItem("7");
+    cmbMesa.addItem("8");
+    cmbMesa.addItem("9");
+    cmbMesa.addItem("10");
+}
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,12 +149,27 @@ public class MenuMesero extends javax.swing.JFrame {
         jPanel1.add(lblEstadoMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 60, -1));
 
         btnVerPedido.setText("Ver Pedido Actual");
+        btnVerPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerPedidoActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnVerPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
 
         btnAgregarPedido.setText("Agregar Pedido ");
+        btnAgregarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPedidoActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnAgregarPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 117, -1));
 
         btnLiberarMesa.setText("Liberar Mesa");
+        btnLiberarMesa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLiberarMesaActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnLiberarMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
 
         btnActualizar.setText("Actualizar");
@@ -196,6 +244,48 @@ public class MenuMesero extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void btnLiberarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarMesaActionPerformed
+        try {
+        int idMesa = cmbMesa.getSelectedIndex() + 1; // Usa el ID real si lo estás cargando dinámicamente
+
+        CreateConection cc = new CreateConection();
+        Connection conn = cc.getConnection();
+
+        mesaDAO dao = new mesaDAO(conn);
+        dao.liberarMesa(idMesa);
+
+        lblEstadoMesa.setText("Libre");
+        JOptionPane.showMessageDialog(this, "Mesa liberada correctamente.");
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al liberar la mesa: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnLiberarMesaActionPerformed
+
+    private void btnAgregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPedidoActionPerformed
+int idMesa = obtenerIdMesaSeleccionada(); 
+        int idUsuario = 0;
+VistaAgregarPedido agregarPedido = new VistaAgregarPedido(idMesa, idUsuario);
+agregarPedido.setVisible(true);
+    }//GEN-LAST:event_btnAgregarPedidoActionPerformed
+
+    private void btnVerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidoActionPerformed
+
+    }//GEN-LAST:event_btnVerPedidoActionPerformed
+
+    private int obtenerIdMesaSeleccionada() {
+    String seleccion = cmbMesa.getSelectedItem().toString();
+    return Integer.parseInt(seleccion); 
+}
+    
+    private void abrirVistaAgregarPedido() {
+    int idMesa = cmbMesa.getSelectedIndex() + 1; // o el valor real si el ID no empieza en 1
+    int idMesero = this.idUsuarioActual; // o como lo tengas guardado del login
+
+    VistaAgregarPedido vistaPedido = new VistaAgregarPedido(idMesa, idMesero);
+    vistaPedido.setVisible(true);
+    
+}
     /**
      * @param args the command line arguments
      */
@@ -238,7 +328,7 @@ public class MenuMesero extends javax.swing.JFrame {
     public javax.swing.JButton btnLiberarMesa;
     private javax.swing.JButton btnSalir;
     public javax.swing.JButton btnVerPedido;
-    private javax.swing.JComboBox<String> cmbMesa;
+    public javax.swing.JComboBox<String> cmbMesa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblActualizar;
@@ -250,6 +340,6 @@ public class MenuMesero extends javax.swing.JFrame {
     public javax.swing.JLabel lblMesa;
     public javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblver;
-    private javax.swing.JTable tblMesas;
+    public javax.swing.JTable tblMesas;
     // End of variables declaration//GEN-END:variables
 }

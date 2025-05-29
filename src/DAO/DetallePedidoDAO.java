@@ -12,7 +12,9 @@ import Modelo.ModeloDetallePedido;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
 
 public class DetallePedidoDAO {
     private Connection conn;
@@ -49,5 +51,33 @@ public class DetallePedidoDAO {
         }
         return true;
     }
+    
+    public List<ModeloDetallePedido> listarPorPedido(int idPedido) {
+    List<ModeloDetallePedido> lista = new ArrayList<>();
+     String sql = "SELECT dp.*, p.nombre " +
+                 "FROM detalle_pedido dp " +
+                 "JOIN productos p ON dp.id_producto = p.id " +
+                 "WHERE dp.id_pedido = ?";
+
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idPedido);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            ModeloDetallePedido d = new ModeloDetallePedido();
+            d.setId(rs.getInt("id"));
+            d.setIdPedido(rs.getInt("id_pedido"));
+            d.setIdProducto(rs.getInt("id_producto"));
+            d.setCantidad(rs.getInt("cantidad"));
+            d.setPrecioUnitario(rs.getDouble("precio_unitario"));
+            d.setSubtotal(rs.getDouble("subtotal"));
+            lista.add(d);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return lista;
+}
     
 }

@@ -20,8 +20,8 @@ public class PedidoDAO {
         this.conn = conn;
     }
 
-    // 🔹 Insertar nuevo pedido
-    public int crearPedido(ModeloPedido pedido) {
+    
+    public int insertarPedido(ModeloPedido pedido) {
         String sql = "INSERT INTO pedidos (id_cliente, id_usuario, mesa_id, total, impuesto) " +
                      "VALUES (?, ?, ?, ?, ?) RETURNING id";
 

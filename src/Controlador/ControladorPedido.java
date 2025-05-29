@@ -21,7 +21,7 @@ public class ControladorPedido {
 
     // Crear un nuevo pedido
     public int registrarPedido(ModeloPedido pedido) {
-        return pedidoDAO.crearPedido(pedido);
+        return pedidoDAO.insertarPedido(pedido);
     }
 
     // Listar pedidos de una mesa específica

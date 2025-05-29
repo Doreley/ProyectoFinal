@@ -21,32 +21,33 @@ Color mColorFondo2 = new Color(93, 173, 226);
      */
     public MenuCajero() {
         initComponents();
+     
           this.setLocationRelativeTo(null);
                 
-        menuClientes.setOpaque(true);
-        menuClientes.setBackground(mColorFondo);
-        menuClientes.setForeground(Color.white);
-        
-        menuFacturacion.setOpaque(true);
-        menuFacturacion.setBackground(mColorFondo);
-        menuFacturacion.setForeground(Color.white);
-        
-        menuReportes.setOpaque(true);
-        menuReportes.setBackground(mColorFondo);
-        menuReportes.setForeground(Color.white);
-        
-        itemClientes.setOpaque(true);
-        itemClientes.setBackground(mColorFondo2);
-        itemClientes.setForeground(Color.white);
-        
-        itemFacturacion.setOpaque(true);
-        itemFacturacion.setBackground(mColorFondo2);
-        itemFacturacion.setForeground(Color.white);
-        
-        itemReportes.setOpaque(true);
-        itemReportes.setBackground(mColorFondo2);
-        itemReportes.setForeground(Color.white);
-        
+//        menuClientes.setOpaque(true);
+//        menuClientes.setBackground(mColorFondo);
+//        menuClientes.setForeground(Color.white);
+//        
+//        menuFacturacion.setOpaque(true);
+//        menuFacturacion.setBackground(mColorFondo);
+//        menuFacturacion.setForeground(Color.white);
+//        
+//        menuReportes.setOpaque(true);
+//        menuReportes.setBackground(mColorFondo);
+//        menuReportes.setForeground(Color.white);
+//        
+//        itemClientes.setOpaque(true);
+//        itemClientes.setBackground(mColorFondo2);
+//        itemClientes.setForeground(Color.white);
+//        
+//        itemFacturacion.setOpaque(true);
+//        itemFacturacion.setBackground(mColorFondo2);
+//        itemFacturacion.setForeground(Color.white);
+//        
+//        itemReportes.setOpaque(true);
+//        itemReportes.setBackground(mColorFondo2);
+//        itemReportes.setForeground(Color.white);
+//        
       ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/img/com.png"));
       ImageIcon icono = new ImageIcon(getClass().getResource("/img/b.png"));
 
@@ -59,6 +60,9 @@ Color mColorFondo2 = new Color(93, 173, 226);
       lblBienvenida.getWidth(), lblBienvenida.getHeight(), Image.SCALE_SMOOTH);
 
       lblBienvenida.setIcon(new ImageIcon(imagenEscala));
+      
+      
+      
     }
 
     /**
@@ -75,13 +79,11 @@ Color mColorFondo2 = new Color(93, 173, 226);
         lblFondo = new javax.swing.JLabel();
         btnCerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        menuFacturacion = new javax.swing.JMenu();
-        itemFacturacion = new javax.swing.JMenuItem();
-        menuClientes = new javax.swing.JMenu();
-        itemClientes = new javax.swing.JMenuItem();
-        menuReportes = new javax.swing.JMenu();
-        itemReportes = new javax.swing.JMenuItem();
+        btnVerPedidos = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        lblPedidosPendientes = new javax.swing.JLabel();
+        btnGenerarfactura = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -89,7 +91,7 @@ Color mColorFondo2 = new Color(93, 173, 226);
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         lblBienvenida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/b.png"))); // NOI18N
-        lblBienvenida.setText("Bienvenido...");
+        lblBienvenida.setText("Bienvenido Cajero");
 
         lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/com.png"))); // NOI18N
         lblFondo.setText("jLabel1");
@@ -108,65 +110,73 @@ Color mColorFondo2 = new Color(93, 173, 226);
             }
         });
 
+        btnVerPedidos.setText("Ver Pedidos Pendientes");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblPedidosPendientes.setText("Pedidos Pendientes");
+
+        btnGenerarfactura.setText("Generar Factura");
+
+        btnActualizar.setText("Actualizar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(0, 27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(18, 18, 18))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(0, 8, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(182, 182, 182)
+                        .addComponent(btnVerPedidos))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(221, 221, 221)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGenerarfactura)
+                            .addComponent(lblPedidosPendientes)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(224, 224, 224)
+                        .addComponent(btnActualizar)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(32, Short.MAX_VALUE)
-                        .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jButton1)
+                .addGap(9, 9, 9)
+                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnVerPedidos)
+                .addGap(18, 18, 18)
+                .addComponent(lblPedidosPendientes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(btnGenerarfactura)
+                .addGap(42, 42, 42)
+                .addComponent(btnActualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(18, 18, 18))
         );
-
-        menuFacturacion.setText("Facturacion");
-
-        itemFacturacion.setText("jMenuItem2");
-        menuFacturacion.add(itemFacturacion);
-
-        jMenuBar1.add(menuFacturacion);
-
-        menuClientes.setText("Clientes");
-
-        itemClientes.setText("Gestionar Clientes");
-        menuClientes.add(itemClientes);
-
-        jMenuBar1.add(menuClientes);
-
-        menuReportes.setText("Reportes");
-
-        itemReportes.setText("Reportes del dia");
-        menuReportes.add(itemReportes);
-
-        jMenuBar1.add(menuReportes);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,17 +233,15 @@ Color mColorFondo2 = new Color(93, 173, 226);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnActualizar;
     public javax.swing.JButton btnCerrarSesion;
-    public javax.swing.JMenuItem itemClientes;
-    public javax.swing.JMenuItem itemFacturacion;
-    public javax.swing.JMenuItem itemReportes;
+    public javax.swing.JButton btnGenerarfactura;
+    public javax.swing.JButton btnVerPedidos;
     private javax.swing.JButton jButton1;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel lblBienvenida;
     private javax.swing.JLabel lblFondo;
-    public javax.swing.JMenu menuClientes;
-    public javax.swing.JMenu menuFacturacion;
-    public javax.swing.JMenu menuReportes;
+    public javax.swing.JLabel lblPedidosPendientes;
     // End of variables declaration//GEN-END:variables
 }
