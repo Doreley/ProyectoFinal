@@ -119,7 +119,7 @@ Color mColorFondo2 = new Color(93, 173, 226);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 
         btnCerrarSesion.setBackground(new java.awt.Color(204, 204, 204));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
