@@ -4,17 +4,74 @@
  */
 package Vista;
 
+import java.awt.Color;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author chaco
  */
 public class MenuAdministrador extends javax.swing.JFrame {
+Color mColorFondo = new Color(24, 127, 220); //Azul 
+Color mColorFondo2 = new Color(93, 173, 226);
 
     /**
      * Creates new form MenuAdministrador
      */
     public MenuAdministrador() {
         initComponents();
+                this.setLocationRelativeTo(null);
+                
+        menuProductos.setOpaque(true);
+        menuProductos.setBackground(mColorFondo);
+        menuProductos.setForeground(Color.white);
+        
+        menuEmpleados.setOpaque(true);
+        menuEmpleados.setBackground(mColorFondo);
+        menuEmpleados.setForeground(Color.white);
+        
+        menuProveedores.setOpaque(true);
+        menuProveedores.setBackground(mColorFondo);
+        menuProveedores.setForeground(Color.white);
+        
+        menuReportes.setOpaque(true);
+        menuReportes.setBackground(mColorFondo);
+        menuReportes.setForeground(Color.white);
+  
+        itenGestionarProductos.setOpaque(true);
+        itenGestionarProductos.setBackground(mColorFondo2);
+        itenGestionarProductos.setForeground(Color.white);
+        
+        itemGestionEmpleados.setOpaque(true);
+        itemGestionEmpleados.setBackground(mColorFondo2);
+        itemGestionEmpleados.setForeground(Color.white);
+        
+        itemGestionarProveedores.setOpaque(true);
+        itemGestionarProveedores.setBackground(mColorFondo2);
+        itemGestionarProveedores.setForeground(Color.white);
+        
+        itemProductosMasVendidos.setOpaque(true);
+        itemProductosMasVendidos.setBackground(mColorFondo2);
+        itemProductosMasVendidos.setForeground(Color.white);
+        
+        itemVentasPorFecha.setOpaque(true);
+        itemVentasPorFecha.setBackground(mColorFondo2);
+        itemVentasPorFecha.setForeground(Color.white);
+        
+      ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/img/com.png"));
+      ImageIcon icono = new ImageIcon(getClass().getResource("/img/b.png"));
+
+      Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
+      lblFondo.getWidth(), lblFondo.getHeight(), Image.SCALE_SMOOTH);
+
+      lblFondo.setIcon(new ImageIcon(imagenEscalada));
+
+      Image imagenEscala = icono.getImage().getScaledInstance(
+      lblBienvenida.getWidth(), lblBienvenida.getHeight(), Image.SCALE_SMOOTH);
+
+      lblBienvenida.setIcon(new ImageIcon(imagenEscala));
+
     }
 
     /**
@@ -31,8 +88,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         gestionarEmpleados = new javax.swing.JMenuItem();
-        lblBienvenida = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         btnCerrarSesion = new javax.swing.JButton();
+        lblBienvenida = new javax.swing.JLabel();
+        lblFondo = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         menuEmpleados = new javax.swing.JMenu();
         itemGestionEmpleados = new javax.swing.JMenuItem();
@@ -55,11 +115,72 @@ public class MenuAdministrador extends javax.swing.JFrame {
         gestionarEmpleados.setText("gestionarEmpleados");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
+        jPanel1.setBackground(new java.awt.Color(102, 255, 255));
+
+        btnCerrarSesion.setBackground(new java.awt.Color(204, 204, 204));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCerrarSesion.setText("Cerar Sesión");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        lblBienvenida.setFont(new java.awt.Font("Vivaldi", 1, 48)); // NOI18N
+        lblBienvenida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/b.png"))); // NOI18N
         lblBienvenida.setText("Bienvenido...");
 
-        btnCerrarSesion.setText("Cerar Sesión");
+        lblFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/com.png"))); // NOI18N
+        lblFondo.setText("jLabel1");
 
+        btnSalir.setBackground(new java.awt.Color(255, 0, 51));
+        btnSalir.setText("X");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(76, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCerrarSesion)
+                                .addGap(18, 18, 18))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnSalir)
+                        .addContainerGap())))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(btnSalir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnCerrarSesion)
+                .addGap(25, 25, 25))
+        );
+
+        menuBar.setBackground(new java.awt.Color(0, 102, 255));
+        menuBar.setBorder(new javax.swing.border.MatteBorder(null));
+
+        menuEmpleados.setBackground(new java.awt.Color(204, 204, 204));
         menuEmpleados.setText("Empleados");
 
         itemGestionEmpleados.setText("Gestionar Empleados");
@@ -70,14 +191,24 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuProductos.setText("Productos");
 
         itenGestionarProductos.setText("Gestionar Productos");
+        itenGestionarProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itenGestionarProductosActionPerformed(evt);
+            }
+        });
         menuProductos.add(itenGestionarProductos);
 
         menuBar.add(menuProductos);
 
         menuProveedores.setText("Proveedores");
-        menuProveedores.setActionCommand("Proveedores");
 
+        itemGestionarProveedores.setBackground(new java.awt.Color(51, 153, 255));
         itemGestionarProveedores.setText("Gestionar Proveedores");
+        itemGestionarProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemGestionarProveedoresActionPerformed(evt);
+            }
+        });
         menuProveedores.add(itemGestionarProveedores);
 
         menuBar.add(menuProveedores);
@@ -100,27 +231,32 @@ public class MenuAdministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion)
-                .addGap(33, 33, 33))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lblBienvenida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion)
-                .addGap(30, 30, 30))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void itemGestionarProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGestionarProveedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemGestionarProveedoresActionPerformed
+
+    private void itenGestionarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itenGestionarProductosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itenGestionarProductosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,6 +295,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnSalir;
     public javax.swing.JMenuItem gestionarEmpleados;
     public javax.swing.JMenuItem itemGestionEmpleados;
     public javax.swing.JMenuItem itemGestionarProveedores;
@@ -169,7 +306,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel lblBienvenida;
+    private javax.swing.JLabel lblFondo;
     public javax.swing.JMenuBar menuBar;
     public javax.swing.JMenu menuEmpleados;
     public javax.swing.JMenu menuProductos;
