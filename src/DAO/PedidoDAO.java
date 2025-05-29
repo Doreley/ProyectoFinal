@@ -12,6 +12,7 @@ import Modelo.ModeloPedido;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
 
 public class PedidoDAO {
     private Connection conn;

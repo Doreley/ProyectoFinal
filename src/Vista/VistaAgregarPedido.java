@@ -300,12 +300,10 @@ private int idUsuario;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-<<<<<<< Upstream, based on origin/master
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
-=======
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
        try {
     String item = cmbProducto.getSelectedItem().toString();
@@ -409,7 +407,6 @@ DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
 modelo.setRowCount(0); 
 this.dispose(); 
     }//GEN-LAST:event_btnCancelarActionPerformed
->>>>>>> a686fdc nueva actualizacion
 
     /**
      * @param args the command line arguments
