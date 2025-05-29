@@ -328,7 +328,7 @@ lblImage.setIcon(new ImageIcon(imagenEscalada));
                         .addComponent(btnModificar)
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar)))
-                .addGap(26, 26, 26)
+                .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -403,21 +403,21 @@ lblImage.setIcon(new ImageIcon(imagenEscalada));
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConsultar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnIngresar;
-    private javax.swing.JButton btnModificar;
-    private javax.swing.JTable empleadoTable;
+    public javax.swing.JButton btnConsultar;
+    public javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnIngresar;
+    public javax.swing.JButton btnModificar;
+    public javax.swing.JTable empleadoTable;
     private javax.swing.JButton jButton4;
-    private javax.swing.JCheckBox jCheckBoxEstado;
+    public javax.swing.JCheckBox jCheckBoxEstado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel2;
+    public javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblCargo;
-    private javax.swing.JLabel lblCodigo;
+    public javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEstado;
@@ -426,14 +426,14 @@ lblImage.setIcon(new ImageIcon(imagenEscalada));
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblSalario;
     private javax.swing.JLabel lblTelefono;
-    private javax.swing.JTextField txtApellido;
-    private javax.swing.JTextField txtCargo;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtFecha;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtSalario;
-    private javax.swing.JTextField txtTelefono;
+    public javax.swing.JTextField txtApellido;
+    public javax.swing.JTextField txtCargo;
+    public javax.swing.JTextField txtCodigo;
+    public javax.swing.JTextField txtDireccion;
+    public javax.swing.JTextField txtEmail;
+    public javax.swing.JTextField txtFecha;
+    public javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtSalario;
+    public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
