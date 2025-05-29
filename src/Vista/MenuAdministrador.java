@@ -26,17 +26,97 @@ public class MenuAdministrador extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        gestionarEmpleados = new javax.swing.JMenuItem();
+        lblBienvenida = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        menuEmpleados = new javax.swing.JMenu();
+        itemGestionEmpleados = new javax.swing.JMenuItem();
+        menuProductos = new javax.swing.JMenu();
+        itenGestionarProductos = new javax.swing.JMenuItem();
+        menuProveedores = new javax.swing.JMenu();
+        itemGestionarProveedores = new javax.swing.JMenuItem();
+        menuReportes = new javax.swing.JMenu();
+        itemVentasPorFecha = new javax.swing.JMenuItem();
+        itemProductosMasVendidos = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
+
+        jMenu2.setText("jMenu2");
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenuItem2.setText("jMenuItem2");
+
+        gestionarEmpleados.setText("gestionarEmpleados");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        lblBienvenida.setText("Bienvenido...");
+
+        btnCerrarSesion.setText("Cerar Sesión");
+
+        menuEmpleados.setText("Empleados");
+
+        itemGestionEmpleados.setText("Gestionar Empleados");
+        menuEmpleados.add(itemGestionEmpleados);
+
+        menuBar.add(menuEmpleados);
+
+        menuProductos.setText("Productos");
+
+        itenGestionarProductos.setText("Gestionar Productos");
+        menuProductos.add(itenGestionarProductos);
+
+        menuBar.add(menuProductos);
+
+        menuProveedores.setText("Proveedores");
+        menuProveedores.setActionCommand("Proveedores");
+
+        itemGestionarProveedores.setText("Gestionar Proveedores");
+        menuProveedores.add(itemGestionarProveedores);
+
+        menuBar.add(menuProveedores);
+
+        menuReportes.setText("Reportes ");
+
+        itemVentasPorFecha.setText("Ventas Por Fecha");
+        menuReportes.add(itemVentasPorFecha);
+
+        itemProductosMasVendidos.setText("Productos Mas Vendidos");
+        itemProductosMasVendidos.setActionCommand("Productos Mas Vendidos ");
+        itemProductosMasVendidos.setAutoscrolls(true);
+        menuReportes.add(itemProductosMasVendidos);
+
+        menuBar.add(menuReportes);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(133, 133, 133)
+                .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(175, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(lblBienvenida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                .addComponent(btnCerrarSesion)
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -78,5 +158,22 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnCerrarSesion;
+    public javax.swing.JMenuItem gestionarEmpleados;
+    public javax.swing.JMenuItem itemGestionEmpleados;
+    public javax.swing.JMenuItem itemGestionarProveedores;
+    public javax.swing.JMenuItem itemProductosMasVendidos;
+    public javax.swing.JMenuItem itemVentasPorFecha;
+    public javax.swing.JMenuItem itenGestionarProductos;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    public javax.swing.JLabel lblBienvenida;
+    public javax.swing.JMenuBar menuBar;
+    public javax.swing.JMenu menuEmpleados;
+    public javax.swing.JMenu menuProductos;
+    public javax.swing.JMenu menuProveedores;
+    public javax.swing.JMenu menuReportes;
     // End of variables declaration//GEN-END:variables
 }
