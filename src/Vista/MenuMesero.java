@@ -77,7 +77,6 @@ public class MenuMesero extends javax.swing.JFrame {
         btnVerPedido = new javax.swing.JButton();
         btnAgregarPedido = new javax.swing.JButton();
         btnLiberarMesa = new javax.swing.JButton();
-        lblPedido = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMesas = new javax.swing.JTable();
@@ -124,10 +123,6 @@ public class MenuMesero extends javax.swing.JFrame {
 
         btnLiberarMesa.setText("Liberar Mesa");
         jPanel1.add(btnLiberarMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
-
-        lblPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/modificar.png"))); // NOI18N
-        lblPedido.setText("jLabel3");
-        jPanel1.add(lblPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 238, 37, 49));
 
         btnActualizar.setText("Actualizar");
         jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, -1));
@@ -239,7 +234,7 @@ public class MenuMesero extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnActualizar;
     public javax.swing.JButton btnAgregarPedido;
-    private javax.swing.JButton btnCerrarSesion;
+    public javax.swing.JButton btnCerrarSesion;
     public javax.swing.JButton btnLiberarMesa;
     private javax.swing.JButton btnSalir;
     public javax.swing.JButton btnVerPedido;
@@ -253,7 +248,6 @@ public class MenuMesero extends javax.swing.JFrame {
     private javax.swing.JLabel lblLiberar;
     private javax.swing.JLabel lblListo;
     public javax.swing.JLabel lblMesa;
-    private javax.swing.JLabel lblPedido;
     public javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblver;
     private javax.swing.JTable tblMesas;
