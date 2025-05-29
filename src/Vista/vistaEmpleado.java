@@ -8,6 +8,9 @@ package Vista;
  *
  * @author chaco
  */
+import javax.swing.ImageIcon;
+import java.awt.Image;
+
 public class vistaEmpleado extends javax.swing.JFrame {
 
     /**
@@ -16,6 +19,13 @@ public class vistaEmpleado extends javax.swing.JFrame {
     public vistaEmpleado() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+      ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/img/us.png"));
+
+Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(
+    lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+
+lblImage.setIcon(new ImageIcon(imagenEscalada));
     }
 
     /**
@@ -58,6 +68,7 @@ public class vistaEmpleado extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         empleadoTable = new javax.swing.JTable();
+        lblImage = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -187,12 +198,17 @@ public class vistaEmpleado extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(empleadoTable);
 
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/us.png"))); // NOI18N
+        lblImage.setText("jLabel2");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addGap(141, 141, 141)
+                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -247,7 +263,8 @@ public class vistaEmpleado extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCodigo))
+                            .addComponent(lblCodigo)
+                            .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNombre)
@@ -296,7 +313,7 @@ public class vistaEmpleado extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton4))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,8 +322,7 @@ public class vistaEmpleado extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,6 +406,7 @@ public class vistaEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblSalario;
     private javax.swing.JLabel lblTelefono;
