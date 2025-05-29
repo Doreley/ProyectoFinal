@@ -8,6 +8,8 @@ package Vista;
  *
  * @author chaco
  */
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -21,6 +23,29 @@ public class VistaAgregarPedido extends javax.swing.JFrame {
     configurarTabla();
     cargarProductos();
     setLocationRelativeTo(null);
+    this.setLocationRelativeTo(null);
+    ImageIcon iconovista = new ImageIcon(getClass().getResource("/Img/vistap.png"));
+    ImageIcon iconoagr = new ImageIcon(getClass().getResource("/Img/agregar.png"));
+    ImageIcon iconoconf = new ImageIcon(getClass().getResource("/Img/confirmar.png"));
+    ImageIcon iconocancel = new ImageIcon(getClass().getResource("/Img/eliminar.png"));
+
+
+    
+      Image imagenEscalas = iconovista.getImage().getScaledInstance(
+      lblVerp.getWidth(), lblVerp.getHeight(), Image.SCALE_SMOOTH);
+      lblVerp.setIcon(new ImageIcon(imagenEscalas));
+      
+      Image imagenEscala1 = iconoagr.getImage().getScaledInstance(
+      lblAgregar.getWidth(), lblAgregar.getHeight(), Image.SCALE_SMOOTH);
+      lblAgregar.setIcon(new ImageIcon(imagenEscala1));
+      
+      Image imagenEscala2 = iconoconf.getImage().getScaledInstance(
+      lblConfirmar.getWidth(), lblConfirmar.getHeight(), Image.SCALE_SMOOTH);
+      lblConfirmar.setIcon(new ImageIcon(imagenEscala2));
+      
+      Image imagenEscala3 = iconocancel.getImage().getScaledInstance(
+      lblcancelar.getWidth(), lblcancelar.getHeight(), Image.SCALE_SMOOTH);
+      lblcancelar.setIcon(new ImageIcon(imagenEscala3));
     }
 
     
@@ -71,15 +96,20 @@ public class VistaAgregarPedido extends javax.swing.JFrame {
         txtCantidad = new javax.swing.JTextField();
         btnAgregarProducto = new javax.swing.JButton();
         btnConfirmarPedido = new javax.swing.JButton();
-        btnEliminarFila = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         cmbProducto = new javax.swing.JComboBox<>();
+        lblVerp = new javax.swing.JLabel();
         lblProducto = new javax.swing.JLabel();
+        lblAgregar = new javax.swing.JLabel();
+        lblConfirmar = new javax.swing.JLabel();
+        lblcancelar = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 153, 153));
+        setUndecorated(true);
 
-        panel1.setBackground(new java.awt.Color(130, 202, 214));
+        panel1.setBackground(new java.awt.Color(0, 204, 204));
 
         tblDetalle.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         tblDetalle.setModel(new javax.swing.table.DefaultTableModel(
@@ -106,19 +136,38 @@ public class VistaAgregarPedido extends javax.swing.JFrame {
         btnConfirmarPedido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnConfirmarPedido.setText("Confirmar Pedido");
 
-        btnEliminarFila.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEliminarFila.setText("Eliminar Fila");
-
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar Pedido");
 
         cmbProducto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         cmbProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        lblVerp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/vistap.png"))); // NOI18N
+        lblVerp.setText("jLabel1");
+
         lblProducto.setBackground(new java.awt.Color(0, 0, 0));
         lblProducto.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         lblProducto.setForeground(new java.awt.Color(255, 255, 255));
         lblProducto.setText("Producto");
+
+        lblAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/agregar.png"))); // NOI18N
+        lblAgregar.setText("jLabel1");
+
+        lblConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/confirmar.png"))); // NOI18N
+        lblConfirmar.setText("jLabel1");
+
+        lblcancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
+        lblcancelar.setText("jLabel1");
+
+        btnSalir.setBackground(new java.awt.Color(255, 0, 51));
+        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("X");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
         panel1.setLayout(panel1Layout);
@@ -127,69 +176,102 @@ public class VistaAgregarPedido extends javax.swing.JFrame {
             .addGroup(panel1Layout.createSequentialGroup()
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(109, 109, 109)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblProducto)
+                            .addComponent(lblCantidad)))
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAgregarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnEliminarFila, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(63, 63, 63)
-                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnConfirmarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(50, 50, 50)
+                        .addComponent(btnAgregarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(btnConfirmarPedido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cmbProducto, 0, 120, Short.MAX_VALUE)
+                            .addComponent(txtCantidad))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(panel1Layout.createSequentialGroup()
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(lblVerp, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(177, 177, 177)
+                                .addComponent(btnCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblcancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 24, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel1Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(lblVerp, javax.swing.GroupLayout.PREFERRED_SIZE, 210, Short.MAX_VALUE)
+                        .addGap(30, 30, 30))
+                    .addGroup(panel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(btnSalir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblProducto))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCantidad)
                     .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addComponent(btnAgregarProducto)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminarFila))
-                    .addGroup(panel1Layout.createSequentialGroup()
-                        .addComponent(btnConfirmarPedido)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnConfirmarPedido)
+                    .addComponent(btnAgregarProducto)
+                    .addComponent(lblAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(lblcancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,11 +312,15 @@ public class VistaAgregarPedido extends javax.swing.JFrame {
     public javax.swing.JButton btnAgregarProducto;
     public javax.swing.JButton btnCancelar;
     public javax.swing.JButton btnConfirmarPedido;
-    public javax.swing.JButton btnEliminarFila;
+    private javax.swing.JButton btnSalir;
     public javax.swing.JComboBox<String> cmbProducto;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAgregar;
     private javax.swing.JLabel lblCantidad;
+    private javax.swing.JLabel lblConfirmar;
     private javax.swing.JLabel lblProducto;
+    private javax.swing.JLabel lblVerp;
+    private javax.swing.JLabel lblcancelar;
     private java.awt.Panel panel1;
     public javax.swing.JTable tblDetalle;
     public javax.swing.JTextField txtCantidad;
