@@ -14,42 +14,69 @@ import Vista.vistaLogin;
 import Vista.MenuAdministrador;
 import Vista.MenuCajero;
 import Vista.MenuMesero;
+import conection.CreateConection;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 
 
 public class controladorLogin {
-     private vistaLogin vista;
+    private vistaLogin vista;
     private usuarioDao dao;
 
-    public controladorLogin(vistaLogin vista) {
+    public controladorLogin(vistaLogin vista) throws SQLException {
         this.vista = vista;
-        this.dao = new usuarioDao();
+        
+        CreateConection cc = new CreateConection();
+    Connection conn = cc.getConnection();
+        this.dao = new usuarioDao(conn);
 
-        this.vista.btnIngresar.addActionListener(e -> validarLogin());
+        // Listener para el botón de ingresar
+        this.vista.btnIngresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    validarLogin(); 
+                } catch (SQLException ex) {
+                    Logger.getLogger(controladorLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
-    private void validarLogin() {
-        String usuario = vista.txtUsuario.getText();
-        String clave = vista.txtContrasena.getText();
+    // Método que valida login y redirige según el rol
+    private void validarLogin() throws SQLException {
+        String usuario = vista.txtUsuario.getText().trim();
+        String clave = vista.txtContrasena.getText().trim();
 
         if (usuario.isEmpty() || clave.isEmpty()) {
             vista.lblMensaje.setText("Por favor, llena todos los campos.");
             return;
         }
 
-        Usuario user = dao.login(usuario, clave);
+        CreateConection cc = new CreateConection();
+        Connection conn = cc.getConnection();
 
-        if (user != null) {
-            vista.lblMensaje.setText("Bienvenido, rol: " + user.getPuesto());
+        usuarioDao usuarioDAO = new usuarioDao(conn);
+        Usuario modeloUsuario = usuarioDAO.validarLogin(usuario, clave);
 
-            switch (user.getPuesto().toLowerCase()) {
+        if (modeloUsuario != null) {
+            vista.lblMensaje.setText("Bienvenido, rol: " + modeloUsuario.getPuesto());
+
+            switch (modeloUsuario.getPuesto().toLowerCase()) {
                 case "administrador":
-                    new MenuAdministrador().setVisible(true);
+                    new MenuAdministrador(modeloUsuario).setVisible(true);
                     break;
                 case "cajero":
-                    new MenuCajero().setVisible(true);
+                    new MenuCajero(modeloUsuario).setVisible(true);
                     break;
                 case "mesero":
-                    new MenuMesero().setVisible(true);
+                    new MenuMesero(modeloUsuario).setVisible(true);
                     break;
                 default:
                     vista.lblMensaje.setText("Rol desconocido.");
@@ -57,11 +84,9 @@ public class controladorLogin {
             }
 
             vista.dispose(); 
-
         } else {
             vista.lblMensaje.setText("Usuario o contraseña incorrectos.");
         }
     }
-  
    
 }

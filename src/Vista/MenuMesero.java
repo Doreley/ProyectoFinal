@@ -19,17 +19,27 @@ import conection.CreateConection;
 import Vista.VistaAgregarPedido;
 import Vista.MenuMesero;
 import javax.swing.table.DefaultTableModel;
+import Modelo.Usuario;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import Modelo.ModeloDetallePedido;
+import java.util.List;
+import DAO.DetallePedidoDAO;
+import DAO.PedidoDAO;
+import Vista.vistaLogin;
 
 public class MenuMesero extends javax.swing.JFrame {
-
+    private Usuario usuario;
     private int idUsuarioActual;
     /**
      * Creates new form MenuMesero
      */
-    public MenuMesero() {
+    public MenuMesero(Usuario usuario) {
         initComponents();
+        this.usuario = usuario;
         cargarMesas();
-        inicializarTablaPedidos();
+        inicializarTablaPedidos(usuario);
         this.setLocationRelativeTo(null);
         
       ImageIcon icono0 = new ImageIcon(getClass().getResource("/Img/b.png"));
@@ -71,7 +81,7 @@ public class MenuMesero extends javax.swing.JFrame {
       
     }
     
-    public void inicializarTablaPedidos() {
+    public void inicializarTablaPedidos(Usuario usuario) {
     String[] columnas = { "ID Producto", "Nombre Producto", "Cantidad", "Precio Unitario", "Subtotal" };
     DefaultTableModel modelo = new DefaultTableModel(null, columnas);
     tblMesas.setModel(modelo);
@@ -173,6 +183,11 @@ public class MenuMesero extends javax.swing.JFrame {
         jPanel1.add(btnLiberarMesa, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, -1, -1));
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, -1));
 
         tblMesas.setModel(new javax.swing.table.DefaultTableModel(
@@ -193,6 +208,11 @@ public class MenuMesero extends javax.swing.JFrame {
         btnCerrarSesion.setBackground(new java.awt.Color(204, 204, 204));
         btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCerrarSesion.setText("Cerrar Sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCerrarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 570, -1, -1));
 
         lblListo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pedido.png"))); // NOI18N
@@ -246,7 +266,7 @@ public class MenuMesero extends javax.swing.JFrame {
 
     private void btnLiberarMesaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarMesaActionPerformed
         try {
-        int idMesa = cmbMesa.getSelectedIndex() + 1; // Usa el ID real si lo estás cargando dinámicamente
+        int idMesa = cmbMesa.getSelectedIndex() + 1; 
 
         CreateConection cc = new CreateConection();
         Connection conn = cc.getConnection();
@@ -265,24 +285,71 @@ public class MenuMesero extends javax.swing.JFrame {
     private void btnAgregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPedidoActionPerformed
 int idMesa = obtenerIdMesaSeleccionada(); 
         int idUsuario = 0;
-VistaAgregarPedido agregarPedido = new VistaAgregarPedido(idMesa, idUsuario);
-agregarPedido.setVisible(true);
+VistaAgregarPedido agregarPedido;
+        try {
+            agregarPedido = new VistaAgregarPedido(idMesa, idUsuario, usuario);
+            agregarPedido.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuMesero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnAgregarPedidoActionPerformed
 
     private void btnVerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidoActionPerformed
+   try {
+        int idMesa = obtenerIdMesaSeleccionada();
+        CreateConection cc = new CreateConection();
+        Connection conn = cc.getConnection();
 
+        PedidoDAO pedidoDAO = new PedidoDAO(conn);
+        DetallePedidoDAO detalleDAO = new DetallePedidoDAO(conn);
+
+        int idPedido = pedidoDAO.obtenerUltimoPedidoPorMesa(idMesa);
+        if (idPedido == -1) {
+            JOptionPane.showMessageDialog(this, "No hay pedidos activos para esta mesa.");
+            return;
+        }
+
+        List<ModeloDetallePedido> detalles = detalleDAO.listarPorPedido(idPedido);
+        DefaultTableModel modelo = (DefaultTableModel) tblMesas.getModel();
+        modelo.setRowCount(0);  // Limpiar tabla
+
+        for (ModeloDetallePedido d : detalles) {
+            modelo.addRow(new Object[]{
+                d.getIdProducto(),
+                d.getNombreProducto(), // Esto debes obtenerlo del JOIN
+                d.getCantidad(),
+                d.getPrecioUnitario(),
+                d.getSubtotal()
+            });
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al ver pedido: " + e.getMessage());
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_btnVerPedidoActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+          cargarMesas();  
+    JOptionPane.showMessageDialog(this, "Mesas actualizadas.");
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+ this.dispose();  
+ new vistaLogin().setVisible(true); 
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
     private int obtenerIdMesaSeleccionada() {
     String seleccion = cmbMesa.getSelectedItem().toString();
     return Integer.parseInt(seleccion); 
 }
     
-    private void abrirVistaAgregarPedido() {
-    int idMesa = cmbMesa.getSelectedIndex() + 1; // o el valor real si el ID no empieza en 1
-    int idMesero = this.idUsuarioActual; // o como lo tengas guardado del login
+    private void abrirVistaAgregarPedido() throws SQLException {
+    int idMesa = cmbMesa.getSelectedIndex() + 1; 
+    int idMesero = this.idUsuarioActual; 
 
-    VistaAgregarPedido vistaPedido = new VistaAgregarPedido(idMesa, idMesero);
+    VistaAgregarPedido vistaPedido = new VistaAgregarPedido(idMesa, idMesero, usuario);
     vistaPedido.setVisible(true);
     
 }
@@ -316,7 +383,6 @@ agregarPedido.setVisible(true);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuMesero().setVisible(true);
             }
         });
     }

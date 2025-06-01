@@ -95,6 +95,9 @@ public class ModeloPedido {
         this.impuesto = impuesto;
     }
     
-    
+   @Override
+public String toString() {
+    return "Pedido #" + id + " - Mesa " + mesaId;
+} 
     
 }

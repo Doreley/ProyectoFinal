@@ -5,10 +5,19 @@
 package Vista;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import Vista.vistaLogin; 
+import java.sql.Connection;
+import conection.CreateConection;
+import DAO.usuarioDao;
+import Modelo.Usuario;
+
 /**
  *
  * @author chaco
  */
+import javax.swing.JOptionPane;
 public class vistaLogin extends javax.swing.JFrame {
 
     /**
@@ -16,7 +25,8 @@ public class vistaLogin extends javax.swing.JFrame {
      */
     public vistaLogin() {
         initComponents();
-         this.setLocationRelativeTo(null);
+ 
+ this.setLocationRelativeTo(null);
         
  ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/img/descarga.png"));
       

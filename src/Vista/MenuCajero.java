@@ -7,6 +7,21 @@ package Vista;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import java.sql.Connection;
+import conection.CreateConection;
+import DAO.PedidoDAO;
+import Modelo.ModeloPedido;
+import java.util.List;
+import javax.swing.JOptionPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import DAO.DetallePedidoDAO;
+import Modelo.ModeloDetallePedido;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import util.GenerarFactura;
+import Modelo.Usuario;
 
 /**
  *
@@ -15,12 +30,64 @@ import javax.swing.ImageIcon;
 public class MenuCajero extends javax.swing.JFrame {
 Color mColorFondo = new Color(24, 127, 220); //Azul 
 Color mColorFondo2 = new Color(93, 173, 226);
+private Usuario usuario;
 
     /**
      * Creates new form MenuCajero
      */
-    public MenuCajero() {
+    public MenuCajero(Usuario usuario) {
+        this.usuario = usuario;
         initComponents();
+        
+    btnVerPedidos.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            CreateConection cc = new CreateConection();
+            Connection conn = cc.getConnection();
+
+            PedidoDAO pedidoDAO = new PedidoDAO(conn);
+            List<ModeloPedido> pendientes = pedidoDAO.obtenerPedidosPendientes();
+
+            cmbPedidosPendientes.removeAllItems(); // Limpiar
+
+            for (ModeloPedido p : pendientes) {
+             cmbPedidosPendientes.addItem(p);
+            }
+
+            conn.close();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar pedidos pendientes: " + ex.getMessage());
+        }
+    }
+});
+    
+btnGenerarfactura.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        int idPedido = obtenerIdSeleccionado(); 
+        CreateConection cc = new CreateConection();
+        Connection conn = null;
+        try {
+            conn = cc.getConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuCajero.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        PedidoDAO pedidoDAO = new PedidoDAO(conn);
+        DetallePedidoDAO detalleDAO = new DetallePedidoDAO(conn);
+
+        ModeloPedido pedido = pedidoDAO.obtenerPorId(idPedido);
+        List<ModeloDetallePedido> detalles = detalleDAO.listarPorPedido(idPedido);
+
+        String nombreCliente = "Juan Pérez"; 
+        String mesero = "Usuario01";         
+
+        GenerarFactura factura = new GenerarFactura();
+        factura.generarFactura(pedido, detalles, nombreCliente, mesero);
+    }
+});
+
      
           this.setLocationRelativeTo(null);
                 
@@ -64,6 +131,29 @@ Color mColorFondo2 = new Color(93, 173, 226);
       
       
     }
+    
+    public void cargarPedidosPendientes() {
+    try {
+        CreateConection cc = new CreateConection();
+        Connection conn = cc.getConnection();
+        PedidoDAO pedidoDAO = new PedidoDAO(conn);
+        
+        List<ModeloPedido> lista = pedidoDAO.obtenerPedidosPendientes();
+        cmbPedidosPendientes.removeAllItems();  
+        
+        for (ModeloPedido p : lista) {
+        cmbPedidosPendientes.addItem(p);
+        }
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error al cargar pedidos: " + e.getMessage());
+    }
+}
+    private int obtenerIdSeleccionado() {
+   
+   ModeloPedido seleccionado = (ModeloPedido) cmbPedidosPendientes.getSelectedItem();
+    return seleccionado.getId();    
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,10 +170,11 @@ Color mColorFondo2 = new Color(93, 173, 226);
         btnCerrarSesion = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         btnVerPedidos = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbPedidosPendientes = new javax.swing.JComboBox<>();
         lblPedidosPendientes = new javax.swing.JLabel();
         btnGenerarfactura = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -112,13 +203,19 @@ Color mColorFondo2 = new Color(93, 173, 226);
 
         btnVerPedidos.setText("Ver Pedidos Pendientes");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPedidosPendientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPedidosPendientesActionPerformed(evt);
+            }
+        });
 
         lblPedidosPendientes.setText("Pedidos Pendientes");
 
         btnGenerarfactura.setText("Generar Factura");
 
         btnActualizar.setText("Actualizar");
+
+        jButton2.setText("jButton2");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -129,30 +226,34 @@ Color mColorFondo2 = new Color(93, 173, 226);
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(0, 27, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnCerrarSesion)
-                .addGap(18, 18, 18))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnCerrarSesion)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(cmbPedidosPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(163, 163, 163))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(182, 182, 182)
-                        .addComponent(btnVerPedidos))
+                        .addGap(213, 213, 213)
+                        .addComponent(lblPedidosPendientes))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(207, 207, 207)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnGenerarfactura)
-                            .addComponent(lblPedidosPendientes)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
-                        .addComponent(btnActualizar)))
+                        .addGap(192, 192, 192)
+                        .addComponent(btnVerPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(189, 189, 189)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerarfactura, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,12 +269,14 @@ Color mColorFondo2 = new Color(93, 173, 226);
                 .addGap(18, 18, 18)
                 .addComponent(lblPedidosPendientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addComponent(cmbPedidosPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(btnGenerarfactura)
-                .addGap(42, 42, 42)
+                .addGap(18, 18, 18)
                 .addComponent(btnActualizar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
                 .addComponent(btnCerrarSesion)
                 .addGap(18, 18, 18))
         );
@@ -196,6 +299,10 @@ Color mColorFondo2 = new Color(93, 173, 226);
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cmbPedidosPendientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPedidosPendientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPedidosPendientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,7 +334,6 @@ Color mColorFondo2 = new Color(93, 173, 226);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuCajero().setVisible(true);
             }
         });
     }
@@ -237,8 +343,9 @@ Color mColorFondo2 = new Color(93, 173, 226);
     public javax.swing.JButton btnCerrarSesion;
     public javax.swing.JButton btnGenerarfactura;
     public javax.swing.JButton btnVerPedidos;
+    public javax.swing.JComboBox<ModeloPedido> cmbPedidosPendientes;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JLabel lblBienvenida;
     private javax.swing.JLabel lblFondo;

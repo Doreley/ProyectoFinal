@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
+import Modelo.Usuario;
 
 /**
  *
@@ -16,12 +17,13 @@ import javax.swing.ImageIcon;
 public class MenuAdministrador extends javax.swing.JFrame {
 Color mColorFondo = new Color(24, 127, 220); //Azul 
 Color mColorFondo2 = new Color(93, 173, 226);
-
+private Usuario usuario;
     /**
      * Creates new form MenuAdministrador
      */
-    public MenuAdministrador() {
+    public MenuAdministrador(Usuario usuario) {
         initComponents();
+        this.usuario = usuario;
                 this.setLocationRelativeTo(null);
                 
         menuProductos.setOpaque(true);
@@ -297,7 +299,7 @@ Color mColorFondo2 = new Color(93, 173, 226);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuAdministrador().setVisible(true);
+       
             }
         });
     }

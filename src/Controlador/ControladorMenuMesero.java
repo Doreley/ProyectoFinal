@@ -22,19 +22,29 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import Modelo.Usuario;
+
 
 
 public class ControladorMenuMesero {
 
     private MenuMesero vista;
-    private int idUsuario;  
+    private int idUsuario;
+    private Usuario usuario;
 
-    public ControladorMenuMesero(MenuMesero vista, int idUsuario) {
+    public ControladorMenuMesero(MenuMesero vista, int idUsuario, Usuario usuario) {
         this.vista = vista;
         this.idUsuario = idUsuario;
+         this.usuario = usuario;
 
         
-        this.vista.btnAgregarPedido.addActionListener(e -> abrirVistaAgregarPedido());
+        this.vista.btnAgregarPedido.addActionListener(e -> {
+            try {
+                abrirVistaAgregarPedido();
+            } catch (SQLException ex) {
+                Logger.getLogger(ControladorMenuMesero.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         this.vista.btnVerPedido.addActionListener(e -> {
             try {
                 verPedidoActual();
@@ -51,9 +61,9 @@ public class ControladorMenuMesero {
         });
     }
 
-    private void abrirVistaAgregarPedido() {
+    private void abrirVistaAgregarPedido() throws SQLException {
         int idMesa = vista.cmbMesa.getSelectedIndex() + 1; 
-        VistaAgregarPedido vistaPedido = new VistaAgregarPedido(idMesa, idUsuario);
+        VistaAgregarPedido vistaPedido = new VistaAgregarPedido(idMesa, idUsuario, usuario);
         vistaPedido.setVisible(true);
     }
     

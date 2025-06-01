@@ -72,5 +72,66 @@ public class PedidoDAO {
 
         return lista;
     }  
+   
+    public List<ModeloPedido> obtenerPedidosPendientes() {
+    List<ModeloPedido> lista = new ArrayList<>();
+    String sql = "SELECT * FROM pedidos WHERE pagado = false ORDER BY fecha DESC";
+
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            ModeloPedido p = new ModeloPedido();
+            p.setId(rs.getInt("id"));
+            p.setMesaId(rs.getInt("mesa_id"));
+            p.setFecha(rs.getTimestamp("fecha"));
+            lista.add(p);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return lista;
+}
+    public ModeloPedido obtenerPorId(int idPedido) {
+    ModeloPedido pedido = null;
+    String sql = "SELECT * FROM pedidos WHERE id = ?";
+
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idPedido);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            pedido = new ModeloPedido();
+            pedido.setId(rs.getInt("id"));
+            pedido.setIdCliente(rs.getInt("id_cliente"));
+            pedido.setIdUsuario(rs.getInt("id_usuario"));
+            pedido.setMesaId(rs.getInt("mesa_id"));
+            pedido.setFecha(rs.getTimestamp("fecha"));
+            pedido.setTotal(rs.getDouble("total"));
+            pedido.setImpuesto(rs.getDouble("impuesto"));
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return pedido;
+}
+   
+    public int obtenerUltimoPedidoPorMesa(int idMesa) {
+    String sql = "SELECT id FROM pedidos WHERE mesa_id = ? ORDER BY fecha DESC LIMIT 1";
+
+    try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, idMesa);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt("id");  
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return -1;  
+}
+  
     
 }

@@ -20,33 +20,62 @@ import DAO.mesaDAO;
 import conection.CreateConection;
 import java.sql.Connection;
 import Modelo.ModeloDetallePedido;
+import Modelo.modeloProducto;
+import DAO.ProductoDAO;
+import java.sql.SQLException;
+import java.util.List;
+import Modelo.Usuario;
+
 
 
 public class VistaAgregarPedido extends javax.swing.JFrame {
 
 private int idMesa;
 private int idUsuario;
+private Usuario usuarioActual;
 
     /**
      * Creates new form VistaAgregarPedido
      */
-    public VistaAgregarPedido(int idMesa, int idUsuario) {
+    public VistaAgregarPedido(int idMesa, int idUsuario, Usuario usuarioActual) throws SQLException {
     initComponents();
-    
+   
     this.idMesa = idMesa;
     this.idUsuario = idUsuario;
+    this.usuarioActual = usuarioActual;
 
     configurarTabla();
     cargarProductos();
+    try {
+        cargarProductos();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al cargar productos: " + e.getMessage());
+    }
     setLocationRelativeTo(null);
     this.setLocationRelativeTo(null);
+    
+    btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnAgregarProductoActionPerformed(evt);
+    }
+});
+
+btnConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnConfirmarPedidoActionPerformed(evt);
+    }
+});
+
+btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnCancelarActionPerformed(evt);
+    }
+});
     ImageIcon iconovista = new ImageIcon(getClass().getResource("/Img/vistap.png"));
     ImageIcon iconoagr = new ImageIcon(getClass().getResource("/Img/agregar.png"));
     ImageIcon iconoconf = new ImageIcon(getClass().getResource("/Img/confirmar.png"));
     ImageIcon iconocancel = new ImageIcon(getClass().getResource("/Img/eliminar.png"));
 
-
-    
       Image imagenEscalas = iconovista.getImage().getScaledInstance(
       lblVerp.getWidth(), lblVerp.getHeight(), Image.SCALE_SMOOTH);
       lblVerp.setIcon(new ImageIcon(imagenEscalas));
@@ -71,30 +100,15 @@ private int idUsuario;
     tblDetalle.setModel(modelo);
 }
     
-   private void cargarProductos() {
-    // Simulando lista desde BD - reemplaza con tu DAO real
-    cmbProducto.removeAllItems(); // limpia primero
+    private void cargarProductos() throws SQLException {
+    cmbProducto.removeAllItems(); 
 
-   cmbProducto.addItem("1 - Coca-Cola");
-    cmbProducto.addItem("2 - Pepsi");
-    cmbProducto.addItem("3 - Jugo de Naranja");
-    cmbProducto.addItem("4 - Agua Mineral");
-    cmbProducto.addItem("5 - Hamburguesa");
-    cmbProducto.addItem("6 - Hot Dog");
-    cmbProducto.addItem("7 - Pizza Personal");
-    cmbProducto.addItem("8 - Tacos al Pastor");
-    cmbProducto.addItem("9 - Pollo Frito");
-    cmbProducto.addItem("10 - Ensalada César");
-    cmbProducto.addItem("11 - Spaghetti Bolognesa");
-    cmbProducto.addItem("12 - Lasagna");
-    cmbProducto.addItem("13 - Papas Fritas");
-    cmbProducto.addItem("14 - Nachos con Queso");
-    cmbProducto.addItem("15 - Helado de Vainilla");
-    cmbProducto.addItem("16 - Pie de Manzana");
-    cmbProducto.addItem("17 - Pastel de Chocolate");
-    cmbProducto.addItem("18 - Flan Casero");
-    cmbProducto.addItem("19 - Café Americano");
-    cmbProducto.addItem("20 - Té Helado");
+    ProductoDAO productoDAO = new ProductoDAO();
+    List<modeloProducto> productos = productoDAO.obtenerTodos();
+
+    for (modeloProducto p : productos) {
+        cmbProducto.addItem(p);
+    }
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,6 +134,11 @@ private int idUsuario;
         lblConfirmar = new javax.swing.JLabel();
         lblcancelar = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        btnAgregarProducto1 = new javax.swing.JButton();
+        btnConfirmarPedido1 = new javax.swing.JButton();
+        btnEliminarFila = new javax.swing.JButton();
+        btnCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 153, 153));
@@ -145,34 +164,17 @@ private int idUsuario;
         lblCantidad.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         lblCantidad.setForeground(new java.awt.Color(255, 255, 255));
         lblCantidad.setText("Cantidad");
-        btnAgregarProducto.setText("Agregar Producto");
-        btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarProductoActionPerformed(evt);
-            }
-        });
 
         btnAgregarProducto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAgregarProducto.setText("Agregar \nProducto");
 
         btnConfirmarPedido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnConfirmarPedido.setText("Confirmar Pedido");
-        btnConfirmarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarPedidoActionPerformed(evt);
-            }
-        });
 
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar Pedido");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
 
         cmbProducto.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        cmbProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblVerp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/vistap.png"))); // NOI18N
         lblVerp.setText("jLabel1");
@@ -198,6 +200,14 @@ private int idUsuario;
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -233,7 +243,9 @@ private int idUsuario;
             .addGroup(panel1Layout.createSequentialGroup()
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
+                        .addContainerGap()
+                        .addComponent(btnRegresar)
+                        .addGap(48, 48, 48)
                         .addComponent(lblVerp, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir))
@@ -259,8 +271,13 @@ private int idUsuario;
                         .addComponent(lblVerp, javax.swing.GroupLayout.PREFERRED_SIZE, 210, Short.MAX_VALUE)
                         .addGap(30, 30, 30))
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(btnSalir)
+                        .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(btnSalir))
+                            .addGroup(panel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btnRegresar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,6 +301,29 @@ private int idUsuario;
                 .addGap(10, 10, 10))
         );
 
+        btnAgregarProducto1.setText("Agregar Producto");
+        btnAgregarProducto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProductoActionPerformed(evt);
+            }
+        });
+
+        btnConfirmarPedido1.setText("Confirmar Pedido");
+        btnConfirmarPedido1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarPedidoActionPerformed(evt);
+            }
+        });
+
+        btnEliminarFila.setText("Eliminar Fila");
+
+        btnCancelar1.setText("Cancelar Pedido");
+        btnCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -305,34 +345,24 @@ private int idUsuario;
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-       try {
-    String item = cmbProducto.getSelectedItem().toString();
-    String[] partes = item.split(" - ");
-    int idProducto = Integer.parseInt(partes[0]);
-    String nombre = partes[1];
+         try {
+        modeloProducto productoSeleccionado = (modeloProducto) cmbProducto.getSelectedItem();
+        int idProducto = productoSeleccionado.getId();
+        String nombre = productoSeleccionado.getNombre();
+        double precioUnitario = productoSeleccionado.getPrecio();
 
-    int cantidad = Integer.parseInt(txtCantidad.getText());
+        int cantidad = Integer.parseInt(txtCantidad.getText());
 
-    // Simular precio
-    double precioUnitario = switch (idProducto) {
-        case 1 -> 10.0;
-        case 2 -> 8.5;
-        case 3 -> 5.0;
-        case 4 -> 12.0;
-        case 5 -> 15.0;
-        default -> 9.0;
-    };
+        double subtotal = cantidad * precioUnitario;
 
-    double subtotal = cantidad * precioUnitario;
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
+        modelo.addRow(new Object[]{idProducto, nombre, cantidad, precioUnitario, subtotal});
 
-    DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
-    modelo.addRow(new Object[]{ idProducto, nombre, cantidad, precioUnitario, subtotal });
+        txtCantidad.setText("");
 
-    txtCantidad.setText("");
-
-} catch (Exception ex) {
-    JOptionPane.showMessageDialog(this, "Error al agregar producto: " + ex.getMessage());
-}
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error al agregar producto: " + ex.getMessage());
+    }
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void btnConfirmarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarPedidoActionPerformed
@@ -394,7 +424,7 @@ private int idUsuario;
 
         JOptionPane.showMessageDialog(this, "Pedido registrado correctamente.");
 
-        modelo.setRowCount(0); // Limpiar tabla
+        modelo.setRowCount(0); 
 
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Error al guardar el pedido: " + ex.getMessage());
@@ -407,6 +437,12 @@ DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
 modelo.setRowCount(0); 
 this.dispose(); 
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+this.dispose();  
+
+new MenuMesero(usuarioActual).setVisible(true);    
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -444,10 +480,15 @@ this.dispose();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregarProducto;
+    public javax.swing.JButton btnAgregarProducto1;
     public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnCancelar1;
     public javax.swing.JButton btnConfirmarPedido;
+    public javax.swing.JButton btnConfirmarPedido1;
+    public javax.swing.JButton btnEliminarFila;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalir;
-    public javax.swing.JComboBox<String> cmbProducto;
+    public javax.swing.JComboBox<modeloProducto> cmbProducto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAgregar;
     private javax.swing.JLabel lblCantidad;

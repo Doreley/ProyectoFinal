@@ -82,10 +82,6 @@ public class Usuario {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
-   
-   
-   
-
-
+    
     
 }

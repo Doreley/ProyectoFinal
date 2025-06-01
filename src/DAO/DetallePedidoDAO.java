@@ -68,6 +68,7 @@ public class DetallePedidoDAO {
             d.setId(rs.getInt("id"));
             d.setIdPedido(rs.getInt("id_pedido"));
             d.setIdProducto(rs.getInt("id_producto"));
+            d.setNombreProducto(rs.getString("nombre"));
             d.setCantidad(rs.getInt("cantidad"));
             d.setPrecioUnitario(rs.getDouble("precio_unitario"));
             d.setSubtotal(rs.getDouble("subtotal"));
@@ -80,4 +81,5 @@ public class DetallePedidoDAO {
     return lista;
 }
     
+  
 }
