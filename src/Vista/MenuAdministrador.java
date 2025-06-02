@@ -195,6 +195,11 @@ private Usuario usuario;
         menuEmpleados.setText("Empleados");
 
         itemGestionEmpleados.setText("Gestionar Empleados");
+        itemGestionEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemGestionEmpleadosActionPerformed(evt);
+            }
+        });
         menuEmpleados.add(itemGestionEmpleados);
 
         menuBar.add(menuEmpleados);
@@ -266,8 +271,16 @@ private Usuario usuario;
     }//GEN-LAST:event_itemGestionarProveedoresActionPerformed
 
     private void itenGestionarProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itenGestionarProductosActionPerformed
-        // TODO add your handling code here:
+        VistaProductos objeto1 = new VistaProductos();
+        jPanel1.add(objeto1);
+        objeto1.show();
     }//GEN-LAST:event_itenGestionarProductosActionPerformed
+
+    private void itemGestionEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGestionEmpleadosActionPerformed
+        vistaEmpleado objeto2 = new vistaEmpleado();
+        jPanel1.add(objeto2);
+        objeto2.show();
+    }//GEN-LAST:event_itemGestionEmpleadosActionPerformed
 
     /**
      * @param args the command line arguments

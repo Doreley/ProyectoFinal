@@ -33,7 +33,7 @@ public class GenerarFactura {
             PdfDocument pdf = new PdfDocument(writer);
             Document doc = new Document(pdf);
 
-            // Encabezado
+            
             doc.add(new Paragraph("Factura Restaurante")
                     .setBold()
                     .setTextAlignment(TextAlignment.CENTER)
@@ -66,11 +66,16 @@ public class GenerarFactura {
             doc.add(tabla);
 
             
-            doc.add(new Paragraph(" "));
-            doc.add(new Paragraph("Subtotal: $" + (pedido.getTotal() - pedido.getImpuesto())));
-            doc.add(new Paragraph("Impuesto: $" + pedido.getImpuesto()));
-            doc.add(new Paragraph("Total: $" + pedido.getTotal()).setBold());
+            double subtotal = 0;
+            for (ModeloDetallePedido d : detalles) {
+            subtotal += d.getSubtotal();
+            }
+            double impuesto = subtotal * 0.15;
+            double total = subtotal + impuesto;
 
+            doc.add(new Paragraph("Subtotal: Q" + subtotal));
+            doc.add(new Paragraph("Impuesto (15%): Q" + impuesto));
+            doc.add(new Paragraph("Total: Q" + total).setBold());
             doc.close();
             System.out.println("Factura generada en: " + rutaArchivo);
 

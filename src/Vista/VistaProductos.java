@@ -18,7 +18,7 @@ public class VistaProductos extends javax.swing.JFrame {
      */
     public VistaProductos() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        
         
       ImageIcon icono0 = new ImageIcon(getClass().getResource("/Img/idproducto.png"));
       ImageIcon icono1 = new ImageIcon(getClass().getResource("/Img/producto.png"));
@@ -121,8 +121,8 @@ public class VistaProductos extends javax.swing.JFrame {
         lblEliminarmg = new javax.swing.JLabel();
         lblIdmg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        
+        
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
 

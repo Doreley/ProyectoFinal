@@ -26,22 +26,32 @@ import util.GenerarFactura;
 import Modelo.Usuario;
 import Vista.VistaAddCliente;
 
+
+
 /**
  *
  * @author chaco
  */
 public class MenuCajero extends javax.swing.JFrame {
-Color mColorFondo = new Color(24, 127, 220); //Azul 
+Color mColorFondo = new Color(24, 127, 220); 
 Color mColorFondo2 = new Color(93, 173, 226);
 private Usuario usuario;
 
     /**
      * Creates new form MenuCajero
      */
-    public MenuCajero(Usuario usuario) {
+    public MenuCajero(Usuario usuario) throws SQLException {
         this.usuario = usuario;
         initComponents();
         
+         CreateConection cc = new CreateConection();
+    Connection conn = cc.getConnection();
+    ClienteDAO clienteDAO = new ClienteDAO(conn);
+
+    List<ModeloCliente> clientes = clienteDAO.listarTodos();
+    for (ModeloCliente cliente : clientes) {
+        cmbCliente.addItem(cliente); 
+    }
     btnVerPedidos.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -82,14 +92,20 @@ btnGenerarfactura.addActionListener(new ActionListener() {
 
         ModeloPedido pedido = pedidoDAO.obtenerPorId(idPedido);
         List<ModeloDetallePedido> detalles = detalleDAO.listarPorPedido(idPedido);
-        
-        ClienteDAO clienteDAO = new ClienteDAO(conn);
-        ModeloCliente cliente = clienteDAO.obtenerPorId(pedido.getIdCliente());
 
-       String mesero = usuario.getNombreUsuario(); 
-       GenerarFactura factura = new GenerarFactura();
-       factura.generarFactura(pedido, detalles, cliente, mesero);
+      ModeloCliente clienteSeleccionado = (ModeloCliente) cmbCliente.getSelectedItem();
+
+        if (clienteSeleccionado == null) {
+            JOptionPane.showMessageDialog(null, "Por favor selecciona un cliente.");
+            return;
+        }
+
         
+        String mesero = usuario.getNombreUsuario();
+
+       
+        GenerarFactura factura = new GenerarFactura();
+        factura.generarFactura(pedido, detalles, clienteSeleccionado, mesero);
     }
 });
 
@@ -154,6 +170,7 @@ btnGenerarfactura.addActionListener(new ActionListener() {
         JOptionPane.showMessageDialog(this, "Error al cargar pedidos: " + e.getMessage());
     }
 }
+    
     private int obtenerIdSeleccionado() {
    
    ModeloPedido seleccionado = (ModeloPedido) cmbPedidosPendientes.getSelectedItem();
@@ -180,6 +197,7 @@ btnGenerarfactura.addActionListener(new ActionListener() {
         btnGenerarfactura = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnAgregarDatosClientes = new javax.swing.JButton();
+        cmbCliente = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -250,13 +268,6 @@ btnGenerarfactura.addActionListener(new ActionListener() {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion)
                 .addGap(18, 18, 18))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAgregarDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGenerarfactura, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,6 +277,18 @@ btnGenerarfactura.addActionListener(new ActionListener() {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblFondo, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(189, 189, 189)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAgregarDatosClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGenerarfactura, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(239, 239, 239)
+                        .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,13 +305,15 @@ btnGenerarfactura.addActionListener(new ActionListener() {
                 .addComponent(lblPedidosPendientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbPedidosPendientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgregarDatosClientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(btnGenerarfactura)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnActualizar)
-                .addGap(12, 12, 12)
+                .addGap(3, 3, 3)
                 .addComponent(btnCerrarSesion)
                 .addGap(18, 18, 18))
         );
@@ -359,9 +384,10 @@ btnGenerarfactura.addActionListener(new ActionListener() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregarDatosClientes;
-    private javax.swing.JButton btnCerrarSesion;
+    public javax.swing.JButton btnCerrarSesion;
     public javax.swing.JButton btnGenerarfactura;
     public javax.swing.JButton btnVerPedidos;
+    private javax.swing.JComboBox<ModeloCliente> cmbCliente;
     public javax.swing.JComboBox<ModeloPedido> cmbPedidosPendientes;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;

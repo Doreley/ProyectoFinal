@@ -19,6 +19,9 @@ import conection.CreateConection;
 import javax.swing.JOptionPane;
 import java.sql.Connection;
 import Vista.MenuCajero;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class VistaAddCliente extends javax.swing.JFrame {
@@ -32,7 +35,7 @@ private Usuario usuario;
         this.setLocationRelativeTo(null);
        
       ImageIcon icono8 = new ImageIcon(getClass().getResource("/Img/id.png"));
-      ImageIcon icono0 = new ImageIcon(getClass().getResource("/Img/adclientes.png"));
+      ImageIcon icono0 = new ImageIcon(getClass().getResource("/Img/adcliente.png"));
       ImageIcon icono2 = new ImageIcon(getClass().getResource("/Img/tel.png"));
       ImageIcon icono3 = new ImageIcon(getClass().getResource("/Img/direccion.png"));
       ImageIcon icono4 = new ImageIcon(getClass().getResource("/Img/email.png"));
@@ -131,7 +134,7 @@ private Usuario usuario;
         jLabel1.setFont(new java.awt.Font("Serif", 1, 48)); // NOI18N
         jLabel1.setText("Clientes");
 
-        lblnombcli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/clientes.png"))); // NOI18N
+        lblnombcli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/adcliente.png"))); // NOI18N
         lblnombcli.setText("jLabel2");
 
         lblidc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/id.png"))); // NOI18N
@@ -460,7 +463,12 @@ private Usuario usuario;
     }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-    MenuCajero menu = new MenuCajero(usuario);
+    MenuCajero menu = null;
+    try {
+        menu = new MenuCajero(usuario);
+    } catch (SQLException ex) {
+        Logger.getLogger(VistaAddCliente.class.getName()).log(Level.SEVERE, null, ex);
+    }
     menu.setVisible(true);
    
     this.dispose();

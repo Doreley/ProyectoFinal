@@ -65,5 +65,8 @@ public class ModeloCliente {
         this.email = email;
     }
     
-    
+    @Override
+public String toString() {
+    return id + " - " + nombre;
+}
 }

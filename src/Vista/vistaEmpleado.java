@@ -18,7 +18,7 @@ public class vistaEmpleado extends javax.swing.JFrame {
      */
     public vistaEmpleado() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        
         
       ImageIcon iconoOriginal = new ImageIcon(getClass().getResource("/img/descarga.png"));
       
@@ -86,8 +86,6 @@ lblImage.setIcon(new ImageIcon(imagenEscalada));
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 102));
 
