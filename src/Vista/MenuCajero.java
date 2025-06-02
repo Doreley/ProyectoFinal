@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import DAO.ClienteDAO;
 import java.awt.Color;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import DAO.DetallePedidoDAO;
+import Modelo.ModeloCliente;
 import Modelo.ModeloDetallePedido;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -80,12 +82,14 @@ btnGenerarfactura.addActionListener(new ActionListener() {
 
         ModeloPedido pedido = pedidoDAO.obtenerPorId(idPedido);
         List<ModeloDetallePedido> detalles = detalleDAO.listarPorPedido(idPedido);
+        
+        ClienteDAO clienteDAO = new ClienteDAO(conn);
+        ModeloCliente cliente = clienteDAO.obtenerPorId(pedido.getIdCliente());
 
-        String nombreCliente = "Juan Pérez"; 
-        String mesero = "Usuario01";         
-
-        GenerarFactura factura = new GenerarFactura();
-        factura.generarFactura(pedido, detalles, nombreCliente, mesero);
+       String mesero = usuario.getNombreUsuario(); 
+       GenerarFactura factura = new GenerarFactura();
+       factura.generarFactura(pedido, detalles, cliente, mesero);
+        
     }
 });
 

@@ -22,9 +22,10 @@ import java.util.List;
 
 import Modelo.ModeloDetallePedido;
 import Modelo.ModeloPedido;
+import Modelo.ModeloCliente;
 
 public class GenerarFactura {
-    public void generarFactura(ModeloPedido pedido, List<ModeloDetallePedido> detalles, String nombreCliente, String usuario) {
+    public void generarFactura(ModeloPedido pedido, List<ModeloDetallePedido> detalles, ModeloCliente cliente, String usuario) {
         String rutaArchivo = "factura_" + pedido.getId() + ".pdf";
 
         try {
@@ -39,11 +40,13 @@ public class GenerarFactura {
                     .setFontSize(20));
 
             doc.add(new Paragraph("Fecha: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))));
-            doc.add(new Paragraph("Cliente: " + nombreCliente));
-            doc.add(new Paragraph("Mesero: " + usuario));
-            doc.add(new Paragraph(" ")); // Espacio
+            doc.add(new Paragraph("Cliente: " + cliente.getNombre()));
+            doc.add(new Paragraph("Teléfono: " + cliente.getTelefono()));
+            doc.add(new Paragraph("Dirección: " + cliente.getDireccion()));
+            doc.add(new Paragraph("Email: " + cliente.getEmail()));
+            doc.add(new Paragraph(" "));
 
-            // Tabla de productos
+            
             Table tabla = new Table(UnitValue.createPercentArray(new float[]{2, 4, 2, 2, 2}))
                     .useAllAvailableWidth();
             tabla.addHeaderCell("ID");
