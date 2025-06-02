@@ -22,7 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.GenerarFactura;
 import Modelo.Usuario;
-import Vista.VistaAgregarCliente;
+import Vista.VistaAddCliente;
 
 /**
  *
@@ -313,7 +313,7 @@ btnGenerarfactura.addActionListener(new ActionListener() {
     }//GEN-LAST:event_cmbPedidosPendientesActionPerformed
 
     private void btnAgregarDatosClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDatosClientesActionPerformed
-    VistaAgregarCliente vistaCliente = new VistaAgregarCliente();
+    VistaAddCliente vistaCliente = new VistaAddCliente(usuario);
     vistaCliente.setVisible(true);
     this.setVisible(false);
     }//GEN-LAST:event_btnAgregarDatosClientesActionPerformed
